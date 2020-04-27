@@ -1,32 +1,22 @@
-### Continuous Integration
-
-| Drone | Travis | Cirrus |
-| -------- | ------ | ------- |
-| [![Build Status](https://cloud.drone.io/api/badges/concurrencykit/ck/status.svg)](https://cloud.drone.io/concurrencykit/ck) | [![Build Status](https://travis-ci.org/concurrencykit/ck.svg)](https://travis-ci.org/concurrencykit/ck) | [![Build Status](https://api.cirrus-ci.com/github/concurrencykit/ck.svg?branch=master)](https://cirrus-ci.com/github/concurrencykit/ck) |
-
-Compilers tested in the past include gcc, clang, cygwin, icc, mingw32, mingw64 and suncc across all supported architectures. All new architectures are required to pass the integration test and under-go extensive code review.
-
-Continuous integration is currently enabled for the following targets:
- * `darwin/clang/x86-64`
- * `freebsd/clang/x86-64`
- * `linux/gcc/arm64`
- * `linux/gcc/x86-64`
- * `linux/clang/x86-64`
- * `linux/clang/ppc64le`
-
 ### Compile and Build
 
 * Step 1.
-        `./configure`
-        For additional options try `./configure --help`
+        `mkdir build`
+	`cd build`
+	`cmake ..`
+	`cmake --build .`
 
-* Step 2.
-        In order to compile regressions (requires POSIX threads) use
-        `make regressions`. In order to compile libck use `make all` or `make`.
+	| Additional options | Effect |
+	| --- | --- |
+	| -DPOINTER_PACK_ENABLE=ON | Assumes address encoding is a subset of pointer range" |
+	| -DMM=(tso|pso|rmo) | Specify memory model (currently tso, pso, or rmo) |
+	| -DVMA_BITS=n | Specify valid number of VMA bits |
+	| -DDISABLE_DOUBLE=ON | Don't generate any of the functions using the "double" type |
+	| -DSSE_DISABLE=ON | Do not use any SSE instructions (x86) |
+	| -DLSE_ENABLE=ON | Enable large system extensions (arm64) |
+	| -DPPC32_LWSYNC_ENABLE | Enable lwsync instruction usage (32-bit Power ISA) |
+	| -DRTM_ENABLE | Enable restricted transactional memory (Power ISA, x86_64) |
 
-* Step 3.
-	In order to install use `make install`
-	To uninstall use `make uninstall`.
 
 See http://concurrencykit.org/ for more information.
 
