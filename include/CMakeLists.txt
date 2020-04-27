@@ -1,0 +1,81 @@
+# Generate the ck_md.h file from ck_md.h.in
+MESSAGE(STATUS "Generating ck_md.h from configuration settings...")
+
+# Pass -DRTM_ENABLE=ON option to enable reactive Turing machine
+IF(RTM_ENABLE)
+	SET(_RTM_ENABLE "CK_MD_RTM_ENABLE")
+ELSE()
+	SET(_RTM_ENABLE "CK_MD_RTM_DISABLE")
+ENDIF()
+# Pass -DLSE_ENABLE=ON option to enable large system extensions
+IF(LSE_ENABLE)
+	SET(_LSE_ENABLE "CK_MD_LSE_ENABLE")
+ELSE()
+	SET(_LSE_ENABLE "CK_MD_LSE_DISABLE")
+ENDIF()
+# Pass -DPOINTER_PACK_ENABLE=ON option to enable pointer packing
+IF(POINTER_PACK_ENABLE)
+	SET(_POINTER_PACK_ENABLE "CK_MD_POINTER_PACK_ENABLE")
+ELSE()
+	SET(_POINTER_PACK_ENABLE "CK_MD_POINTER_PACK_DISABLE")
+ENDIF()
+# Pass -DSSE_DISABLE=ON option to disable SSE instructions
+IF(SSE_DISABLE)
+	SET(_SSE_DISABLE CK_MD_SSE_DISABLE)
+ELSE()
+	SET(_SSE_DISABLE CK_MD_SSE_ENABLE)
+ENDIF()
+# Pass -DPPC32_LWSYNC_ENABLE=ON to enable lwsync instructions on 32-bit PPC
+IF(PPC32_LWSYNC_ENABLE)
+	SET(_PPC32_LWSYNC_ENABLE CK_MD_PPC32_LWSYNC_ENABLE)
+ELSE()
+	SET(_PPC32_LWSYNC_ENABLE CK_MD_PPC32_LWSYNC_DISABLE)
+ENDIF()
+# Pass -DVMA_BITS=n to set # of VMA bits
+IF(VMA_BITS)
+	SET(_VMA_BITS CK_MD_VMA_BITS)
+	SET(VMA_BITS_VALUE "${VMA_BITS}")
+ELSE()
+	SET(_VMA_BITS CK_MD_VMA_BITS)
+	SET(VMA_BITS_VALUE "48ULL")
+ENDIF()
+# Pass -DMM=foo to set memory model (tso|pso|rmo)
+IF(MM STREQUAL "tso")
+	SET(_MM CK_MD_TSO)
+ELSEIF(MM STREQUAL "pso")
+	SET(_MM CK_MD_PSO)
+ELSEIF(MM STREQUAL "rmo")
+	SET(_MM CK_MD_RMO)
+ELSE()
+	SET(_MM CK_MD_TSO)
+ENDIF()
+# Pass -DDISABLE_DOUBLE=ON to disable use of the double type
+IF(DISABLE_DOUBLE)
+	SET(_DISABLE_DOUBLE CK_PR_DISABLE_DOUBLE)
+ELSE()
+	SET(_DISABLE_DOUBLE CK_PR_ENABLE_DOUBLE)
+ENDIF()
+
+# Get the git short SHA
+FIND_PACKAGE(Git)
+IF(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git")
+	EXECUTE_PROCESS(COMMAND git rev-parse --short HEAD
+		RESULT_VARIABLE GIT_SHA_RESULT
+		OUTPUT_VARIABLE GIT_SHA)
+	IF(GIT_SHA_RESULT EQUAL "1")
+		MESSAGE(FATAL_ERROR 
+			"git rev-parse --short HEAD failed; unable to generate ck_md.h.")
+	ELSE()
+		# Strip trailing newline
+		STRING(REGEX REPLACE "\n$" "" GIT_SHA "${GIT_SHA}")
+		MESSAGE(STATUS "Got git short hash ${GIT_SHA}.")
+	ENDIF()
+ELSE()
+	MESSAGE(FATAL_ERROR "Git not found.")
+ENDIF()
+
+# Version var VERSION is inherited from root CMakeLists.txt
+
+CONFIGURE_FILE(
+	${CMAKE_CURRENT_SOURCE_DIR}/ck_md.h.in 
+	${CMAKE_CURRENT_SOURCE_DIR}/ck_md.h)

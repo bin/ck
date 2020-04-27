@@ -204,3 +204,8 @@ regressions/ck_tflock/validate/validate
 *.so
 src/Makefile
 .*.sw[op]
+
+build
+tags
+tags.lock
+tags.temp
