@@ -35,37 +35,37 @@
 #define CK_MD_PAGESIZE (4096)
 #endif
 
-#ifndef @RTM_ENABLE@
-#define @RTM_ENABLE@
-#endif /* @RTM_ENABLE@ */
+#ifndef @_RTM_ENABLE@
+#define @_RTM_ENABLE@
+#endif /* @_RTM_ENABLE@ */
 
-#ifndef @LSE_ENABLE@
-#define @LSE_ENABLE@
-#endif /* @LSE_ENABLE@ */
+#ifndef @_LSE_ENABLE@
+#define @_LSE_ENABLE@
+#endif /* @_LSE_ENABLE@ */
 
-#ifndef @POINTER_PACK_ENABLE@
-#define @POINTER_PACK_ENABLE@
-#endif /* @POINTER_PACK_ENABLE@ */
+#ifndef @_POINTER_PACK_ENABLE@
+#define @_POINTER_PACK_ENABLE@
+#endif /* @_POINTER_PACK_ENABLE@ */
 
-#ifndef @SSE_DISABLE@
-#define @SSE_DISABLE@
-#endif /* @SSE_DISABLE@ */
+#ifndef @_SSE_DISABLE@
+#define @_SSE_DISABLE@
+#endif /* @_SSE_DISABLE@ */
 
-#ifndef @PPC32_LWSYNC_ENABLE@
-#define @PPC32_LWSYNC_ENABLE@
-#endif /* @PPC32_LWSYNC_ENABLE@ */
+#ifndef @_PPC32_LWSYNC_ENABLE@
+#define @_PPC32_LWSYNC_ENABLE@
+#endif /* @_PPC32_LWSYNC_ENABLE@ */
 
-#ifndef @VMA_BITS@
-#define @VMA_BITS@ @VMA_BITS_VALUE@
-#endif /* @VMA_BITS@ */
+#ifndef @_VMA_BITS@
+#define @_VMA_BITS@ @VMA_BITS_VALUE@
+#endif /* @_VMA_BITS@ */
 
-#ifndef @MM@
-#define @MM@
-#endif /* @MM@ */
+#ifndef @_MM@
+#define @_MM@
+#endif /* @_MM@ */
 
-#ifndef @DISABLE_DOUBLE@
-#define @DISABLE_DOUBLE@
-#endif /* @DISABLE_DOUBLE@ */
+#ifndef @_DISABLE_DOUBLE@
+#define @_DISABLE_DOUBLE@
+#endif /* @_DISABLE_DOUBLE@ */
 
 #define CK_VERSION "@VERSION@"
 #define CK_GIT_SHA "@GIT_SHA@"
