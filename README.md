@@ -9,13 +9,13 @@
 	| Additional options | Effect |
 	| --- | --- |
 	| -DPOINTER_PACK_ENABLE=ON | Assumes address encoding is a subset of pointer range" |
-	| -DMM=(tso|pso|rmo) | Specify memory model (currently tso, pso, or rmo) |
+	| -DMM=(tso\|pso\|rmo) | Specify memory model (currently tso, pso, or rmo) |
 	| -DVMA_BITS=n | Specify valid number of VMA bits |
 	| -DDISABLE_DOUBLE=ON | Don't generate any of the functions using the "double" type |
 	| -DSSE_DISABLE=ON | Do not use any SSE instructions (x86) |
 	| -DLSE_ENABLE=ON | Enable large system extensions (arm64) |
-	| -DPPC32_LWSYNC_ENABLE | Enable lwsync instruction usage (32-bit Power ISA) |
-	| -DRTM_ENABLE | Enable restricted transactional memory (Power ISA, x86_64) |
+	| -DPPC32_LWSYNC_ENABLE=ON | Enable lwsync instruction usage (32-bit Power ISA) |
+	| -DRTM_ENABLE=ON | Enable restricted transactional memory (Power ISA, x86_64) |
 
 
 See http://concurrencykit.org/ for more information.
